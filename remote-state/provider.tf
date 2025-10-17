@@ -7,12 +7,14 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "my-remote-state-file"
-    key    = "path/to/my/key"
+    bucket = "kishore-remote-state"   # name of your S3 bucket
+    key    = "terraform--remote-state"   # name of the file to store the state
     region = "us-east-1"
+    use_lockfile = true
+    encrypt = true
   }
 }
 
 provider "aws" {
-  # Configuration options
+  region = "us-east-1"
 }
