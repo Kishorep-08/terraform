@@ -1,17 +1,12 @@
 resource "aws_instance" "first_resource" {
   ami           = "ami-09c813fb71547fc4f"
-  instance_type = var.environment == "dev" ? "t3.micro" : (
-                  var.environment == "prod" ? "t3.large" : "t3.medium")
+  instance_type = local.instance_type
   vpc_security_group_ids = [aws_security_group.allow_all.id]
    
 
-  tags = {
-    Name = "terraform"
-    Terraform = "true"
-    Language = "HCL"
+  tags = local.ec2_tags
+    
   }
-
-}
 
 resource "aws_security_group" "allow_all" {
   name   = "my_sg"
@@ -31,6 +26,6 @@ resource "aws_security_group" "allow_all" {
     }
 
     tags = {
-        Name = "my_sg"
+        Name = "${local.common_name}-my_sg"
     }
 }

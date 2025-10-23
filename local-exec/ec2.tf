@@ -1,7 +1,6 @@
 resource "aws_instance" "first_resource" {
   ami           = "ami-09c813fb71547fc4f"
-  instance_type = var.environment == "dev" ? "t3.micro" : (
-                  var.environment == "prod" ? "t3.large" : "t3.medium")
+  instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_all.id]
    
 
@@ -11,10 +10,20 @@ resource "aws_instance" "first_resource" {
     Language = "HCL"
   }
 
+  provisioner "local-exec" {
+    command = "echo instance private is ${self.private_ip} > inventory"
+    on_failure = continue
+  }
+
+  provisioner "local-exec" {
+    command = "echo instance is deleted"
+    when = destroy
+  }
 }
 
+
 resource "aws_security_group" "allow_all" {
-  name   = "my_sg"
+  name   = "my_sg-1"
 
     egress {
         from_port        = 0

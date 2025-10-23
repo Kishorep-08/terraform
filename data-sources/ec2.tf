@@ -1,10 +1,7 @@
-resource "aws_instance" "first_resource" {
-  ami           = "ami-09c813fb71547fc4f"
-  instance_type = var.environment == "dev" ? "t3.micro" : (
-                  var.environment == "prod" ? "t3.large" : "t3.medium")
+resource "aws_instance" "terraform" {
+  ami           = data.aws_ami.devops_ami.id
+  instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_all.id]
-   
-
   tags = {
     Name = "terraform"
     Terraform = "true"

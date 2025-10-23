@@ -1,12 +1,12 @@
-resource "aws_instance" "first_resource" {
+resource "aws_instance" "terraform" {
+  for_each = var.instance_name
   ami           = "ami-09c813fb71547fc4f"
-  instance_type = var.environment == "dev" ? "t3.micro" : (
-                  var.environment == "prod" ? "t3.large" : "t3.medium")
+  instance_type = each.value
   vpc_security_group_ids = [aws_security_group.allow_all.id]
    
 
   tags = {
-    Name = "terraform"
+    Name = each.key
     Terraform = "true"
     Language = "HCL"
   }
