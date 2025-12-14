@@ -9,7 +9,7 @@ resource "aws_instance" "first_resource" {
     Terraform = "true"
     Language = "HCL"
   }
-
+  
 }
 
 resource "aws_security_group" "allow_all" {
