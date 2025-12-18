@@ -3,7 +3,7 @@ resource "aws_instance" "devops_ec2" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [aws_security_group.devops_sg.id]
     tags = {
-        Name = "devops-ec2-instance"
+        Name = "devops-handson"
         Purpose = "devops-practice"
     }
     subnet_id = aws_subnet.public.id
