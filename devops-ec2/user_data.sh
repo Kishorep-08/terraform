@@ -28,6 +28,8 @@ tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
 sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
 
+sudo dnf install helm
+
 git clone https://github.com/Kishorep-08/eksctl.git
 
 git clone https://github.com/Kishorep-08/k8s-resources.git
